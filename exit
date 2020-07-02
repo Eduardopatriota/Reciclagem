@@ -1,0 +1,426 @@
+[33mcommit 85e9c987e8e07fd802eebf6226db410469be8f6f[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m
+Author: Eduardopatriota <39865404+Eduardopatriota@users.noreply.github.com>
+Date:   Wed Jul 1 12:54:45 2020 -0300
+
+    adicionado informação no banco de dados
+
+[1mdiff --git a/src/database/database.db b/src/database/database.db[m
+[1mindex cffca41..d16ef44 100644[m
+Binary files a/src/database/database.db and b/src/database/database.db differ
+
+[33mcommit fa159a66782f5871a5bc2c956b870d95043c2732[m
+Author: Eduardopatriota <39865404+Eduardopatriota@users.noreply.github.com>
+Date:   Wed Jul 1 12:46:47 2020 -0300
+
+    primeiro commit do projeto da Rocktseat
+
+[1mdiff --git a/node_modules/.bin/detect-libc b/node_modules/.bin/detect-libc[m
+[1mnew file mode 100644[m
+[1mindex 0000000..4509242[m
+[1m--- /dev/null[m
+[1m+++ b/node_modules/.bin/detect-libc[m
+[36m@@ -0,0 +1,15 @@[m
+[32m+[m[32m#!/bin/sh[m
+[32m+[m[32mbasedir=$(dirname "$(echo "$0" | sed -e 's,\\,/,g')")[m
+[32m+[m
+[32m+[m[32mcase `uname` in[m
+[32m+[m[32m    *CYGWIN*|*MINGW*|*MSYS*) basedir=`cygpath -w "$basedir"`;;[m
+[32m+[m[32mesac[m
+[32m+[m
+[32m+[m[32mif [ -x "$basedir/node" ]; then[m
+[32m+[m[32m  "$basedir/node"  "$basedir/../detect-libc/bin/detect-libc.js" "$@"[m
+[32m+[m[32m  ret=$?[m
+[32m+[m[32melse[m[41m [m
+[32m+[m[32m  node  "$basedir/../detect-libc/bin/detect-libc.js" "$@"[m
+[32m+[m[32m  ret=$?[m
+[32m+[m[32mfi[m
+[32m+[m[32mexit $ret[m
+[1mdiff --git a/node_modules/.bin/detect-libc.cmd b/node_modules/.bin/detect-libc.cmd[m
+[1mnew file mode 100644[m
+[1mindex 0000000..8e862c4[m
+[1m--- /dev/null[m
+[1m+++ b/node_modules/.bin/detect-libc.cmd[m
+[36m@@ -0,0 +1,17 @@[m
+[32m+[m[32m@ECHO off[m
+[32m+[m[32mSETLOCAL[m
+[32m+[m[32mCALL :find_dp0[m
+[32m+[m
+[32m+[m[32mIF EXIST "%dp0%\node.exe" ([m
+[32m+[m[32m  SET "_prog=%dp0%\node.exe"[m
+[32m+[m[32m) ELSE ([m
+[32m+[m[32m  SET "_prog=node"[m
+[32m+[m[32m  SET PATHEXT=%PATHEXT:;.JS;=;%[m
+[32m+[m[32m)[m
+[32m+[m
+[32m+[m[32m"%_prog%"  "%dp0%\..\detect-libc\bin\detect-libc.js" %*[m
+[32m+[m[32mENDLOCAL[m
+[32m+[m[32mEXIT /b %errorlevel%[m
+[32m+[m[32m:find_dp0[m
+[32m+[m[32mSET dp0=%~dp0[m
+[32m+[m[32mEXIT /b[m
+[1mdiff --git a/node_modules/.bin/detect-libc.ps1 b/node_modules/.bin/detect-libc.ps1[m
+[1mnew file mode 100644[m
+[1mindex 0000000..85e43b5[m
+[1m--- /dev/null[m
+[1m+++ b/node_modules/.bin/detect-libc.ps1[m
+[36m@@ -0,0 +1,18 @@[m
+[32m+[m[32m#!/usr/bin/env pwsh[m
+[32m+[m[32m$basedir=Split-Path $MyInvocation.MyCommand.Definition -Parent[m
+[32m+[m
+[32m+[m[32m$exe=""[m
+[32m+[m[32mif ($PSVersionTable.PSVersion -lt "6.0" -or $IsWindows) {[m
+[32m+[m[32m  # Fix case when both the Windows and Linux builds of Node[m
+[32m+[m[32m  # are installed in the same directory[m
+[32m+[m[32m  $exe=".exe"[m
+[32m+[m[32m}[m
+[32m+[m[32m$ret=0[m
+[32m+[m[32mif (Test-Path "$basedir/node$exe") {[m
+[32m+[m[32m  & "$basedir/node$exe"  "$basedir/../detect-libc/bin/detect-libc.js" $args[m
+[32m+[m[32m  $ret=$LASTEXITCODE[m
+[32m+[m[32m} else {[m
+[32m+[m[32m  & "node$exe"  "$basedir/../detect-libc/bin/detect-libc.js" $args[m
+[32m+[m[32m  $ret=$LASTEXITCODE[m
+[32m+[m[32m}[m
+[32m+[m[32mexit $ret[m
+[1mdiff --git a/node_modules/.bin/mkdirp b/node_modules/.bin/mkdirp[m
+[1mnew file mode 100644[m
+[1mindex 0000000..bcd333f[m
+[1m--- /dev/null[m
+[1m+++ b/node_modules/.bin/mkdirp[m
+[36m@@ -0,0 +1,15 @@[m
+[32m+[m[32m#!/bin/sh[m
+[32m+[m[32mbasedir=$(dirname "$(echo "$0" | sed -e 's,\\,/,g')")[m
+[32m+[m
+[32m+[m[32mcase `uname` in[m
+[32m+[m[32m    *CYGWIN*|*MINGW*|*MSYS*) basedir=`cygpath -w "$basedir"`;;[m
+[32m+[m[32mesac[m
+[32m+[m
+[32m+[m[32mif [ -x "$basedir/node" ]; then[m
+[32m+[m[32m  "$basedir/node"  "$basedir/../mkdirp/bin/cmd.js" "$@"[m
+[32m+[m[32m  ret=$?[m
+[32m+[m[32melse[m[41m [m
+[32m+[m[32m  node  "$basedir/../mkdirp/bin/cmd.js" "$@"[m
+[32m+[m[32m  ret=$?[m
+[32m+[m[32mfi[m
+[32m+[m[32mexit $ret[m
+[1mdiff --git a/node_modules/.bin/mkdirp.cmd b/node_modules/.bin/mkdirp.cmd[m
+[1mnew file mode 100644[m
+[1mindex 0000000..c2c9350[m
+[1m--- /dev/null[m
+[1m+++ b/node_modules/.bin/mkdirp.cmd[m
+[36m@@ -0,0 +1,17 @@[m
+[32m+[m[32m@ECHO off[m
+[32m+[m[32mSETLOCAL[m
+[32m+[m[32mCALL :find_dp0[m
+[32m+[m
+[32m+[m[32mIF EXIST "%dp0%\node.exe" ([m
+[32m+[m[32m  SET "_prog=%dp0%\node.exe"[m
+[32m+[m[32m) ELSE ([m
+[32m+[m[32m  SET "_prog=node"[m
+[32m+[m[32m  SET PATHEXT=%PATHEXT:;.JS;=;%[m
+[32m+[m[32m)[m
+[32m+[m
+[32m+[m[32m"%_prog%"  "%dp0%\..\mkdirp\bin\cmd.js" %*[m
+[32m+[m[32mENDLOCAL[m
+[32m+[m[32mEXIT /b %errorlevel%[m
+[32m+[m[32m:find_dp0[m
+[32m+[m[32mSET dp0=%~dp0[m
+[32m+[m[32mEXIT /b[m
+[1mdiff --git a/node_modules/.bin/mkdirp.ps1 b/node_modules/.bin/mkdirp.ps1[m
+[1mnew file mode 100644[m
+[1mindex 0000000..35ce690[m
+[1m--- /dev/null[m
+[1m+++ b/node_modules/.bin/mkdirp.ps1[m
+[36m@@ -0,0 +1,18 @@[m
+[32m+[m[32m#!/usr/bin/env pwsh[m
+[32m+[m[32m$basedir=Split-Path $MyInvocation.MyCommand.Definition -Parent[m
+[32m+[m
+[32m+[m[32m$exe=""[m
+[32m+[m[32mif ($PSVersionTable.PSVersion -lt "6.0" -or $IsWindows) {[m
+[32m+[m[32m  # Fix case when both the Windows and Linux builds of Node[m
+[32m+[m[32m  # are installed in the same directory[m
+[32m+[m[32m  $exe=".exe"[m
+[32m+[m[32m}[m
+[32m+[m[32m$ret=0[m
+[32m+[m[32mif (Test-Path "$basedir/node$exe") {[m
+[32m+[m[32m  & "$basedir/node$exe"  "$basedir/../mkdirp/bin/cmd.js" $args[m
+[32m+[m[32m  $ret=$LASTEXITCODE[m
+[32m+[m[32m} else {[m
+[32m+[m[32m  & "node$exe"  "$basedir/../mkdirp/bin/cmd.js" $args[m
+[32m+[m[32m  $ret=$LASTEXITCODE[m
+[32m+[m[32m}[m
+[32m+[m[32mexit $ret[m
+[1mdiff --git a/node_modules/.bin/needle b/node_modules/.bin/needle[m
+[1mnew file mode 100644[m
+[1mindex 0000000..6a29d8a[m
+[1m--- /dev/null[m
+[1m+++ b/node_modules/.bin/needle[m
+[36m@@ -0,0 +1,15 @@[m
+[32m+[m[32m#!/bin/sh[m
+[32m+[m[32mbasedir=$(dirname "$(echo "$0" | sed -e 's,\\,/,g')")[m
+[32m+[m
+[32m+[m[32mcase `uname` in[m
+[32m+[m[32m    *CYGWIN*|*MINGW*|*MSYS*) basedir=`cygpath -w "$basedir"`;;[m
+[32m+[m[32mesac[m
+[32m+[m
+[32m+[m[32mif [ -x "$basedir/node" ]; then[m
+[32m+[m[32m  "$basedir/node"  "$basedir/../needle/bin/needle" "$@"[m
+[32m+[m[32m  ret=$?[m
+[32m+[m[32melse[m[41m [m
+[32m+[m[32m  node  "$basedir/../needle/bin/needle" "$@"[m
+[32m+[m[32m  ret=$?[m
+[32m+[m[32mfi[m
+[32m+[m[32mexit $ret[m
+[1mdiff --git a/node_modules/.bin/needle.cmd b/node_modules/.bin/needle.cmd[m
+[1mnew file mode 100644[m
+[1mindex 0000000..2aab3b6[m
+[1m--- /dev/null[m
+[1m+++ b/node_modules/.bin/needle.cmd[m
+[36m@@ -0,0 +1,17 @@[m
+[32m+[m[32m@ECHO off[m
+[32m+[m[32mSETLOCAL[m
+[32m+[m[32mCALL :find_dp0[m
+[32m+[m
+[32m+[m[32mIF EXIST "%dp0%\node.exe" ([m
+[32m+[m[32m  SET "_prog=%dp0%\node.exe"[m
+[32m+[m[32m) ELSE ([m
+[32m+[m[32m  SET "_prog=node"[m
+[32m+[m[32m  SET PATHEXT=%PATHEXT:;.JS;=;%[m
+[32m+[m[32m)[m
+[32m+[m
+[32m+[m[32m"%_prog%"  "%dp0%\..\needle\bin\needle" %*[m
+[32m+[m[32mENDLOCAL[m
+[32m+[m[32mEXIT /b %errorlevel%[m
+[32m+[m[32m:find_dp0[m
+[32m+[m[32mSET dp0=%~dp0[m
+[32m+[m[32mEXIT /b[m
+[1mdiff --git a/node_modules/.bin/needle.ps1 b/node_modules/.bin/needle.ps1[m
+[1mnew file mode 100644[m
+[1mindex 0000000..4ce7332[m
+[1m--- /dev/null[m
+[1m+++ b/node_modules/.bin/needle.ps1[m
+[36m@@ -0,0 +1,18 @@[m
+[32m+[m[32m#!/usr/bin/env pwsh[m
+[32m+[m[32m$basedir=Split-Path $MyInvocation.MyCommand.Definition -Parent[m
+[32m+[m
+[32m+[m[32m$exe=""[m
+[32m+[m[32mif ($PSVersionTable.PSVersion -lt "6.0" -or $IsWindows) {[m
+[32m+[m[32m  # Fix case when both the Windows and Linux builds of Node[m
+[32m+[m[32m  # are installed in the same directory[m
+[32m+[m[32m  $exe=".exe"[m
+[32m+[m[32m}[m
+[32m+[m[32m$ret=0[m
+[32m+[m[32mif (Test-Path "$basedir/node$exe") {[m
+[32m+[m[32m  & "$basedir/node$exe"  "$basedir/../needle/bin/needle" $args[m
+[32m+[m[32m  $ret=$LASTEXITCODE[m
+[32m+[m[32m} else {[m
+[32m+[m[32m  & "node$exe"  "$basedir/../needle/bin/needle" $args[m
+[32m+[m[32m  $ret=$LASTEXITCODE[m
+[32m+[m[32m}[m
+[32m+[m[32mexit $ret[m
+[1mdiff --git a/node_modules/.bin/node-gyp b/node_modules/.bin/node-gyp[m
+[1mnew file mode 100644[m
+[1mindex 0000000..68303f9[m
+[1m--- /dev/null[m
+[1m+++ b/node_modules/.bin/node-gyp[m
+[36m@@ -0,0 +1,15 @@[m
+[32m+[m[32m#!/bin/sh[m
+[32m+[m[32mbasedir=$(dirname "$(echo "$0" | sed -e 's,\\,/,g')")[m
+[32m+[m
+[32m+[m[32mcase `uname` in[m
+[32m+[m[32m    *CYGWIN*|*MINGW*|*MSYS*) basedir=`cygpath -w "$basedir"`;;[m
+[32m+[m[32mesac[m
+[32m+[m
+[32m+[m[32mif [ -x "$basedir/node" ]; then[m
+[32m+[m[32m  "$basedir/node"  "$basedir/../node-gyp/bin/node-gyp.js" "$@"[m
+[32m+[m[32m  ret=$?[m
+[32m+[m[32melse[m[41m [m
+[32m+[m[32m  node  "$basedir/../node-gyp/bin/node-gyp.js" "$@"[m
+[32m+[m[32m  ret=$?[m
+[32m+[m[32mfi[m
+[32m+[m[32mexit $ret[m
+[1mdiff --git a/node_modules/.bin/node-gyp.cmd b/node_modules/.bin/node-gyp.cmd[m
+[1mnew file mode 100644[m
+[1mindex 0000000..9025417[m
+[1m--- /dev/null[m
+[1m+++ b/node_modules/.bin/node-gyp.cmd[m
+[36m@@ -0,0 +1,17 @@[m
+[32m+[m[32m@ECHO off[m
+[32m+[m[32mSETLOCAL[m
+[32m+[m[32mCALL :find_dp0[m
+[32m+[m
+[32m+[m[32mIF EXIST "%dp0%\node.exe" ([m
+[32m+[m[32m  SET "_prog=%dp0%\node.exe"[m
+[32m+[m[32m) ELSE ([m
+[32m+[m[32m  SET "_prog=node"[m
+[32m+[m[32m  SET PATHEXT=%PATHEXT:;.JS;=;%[m
+[32m+[m[32m)[m
+[32m+[m
+[32m+[m[32m"%_prog%"  "%dp0%\..\node-gyp\bin\node-gyp.js" %*[m
+[32m+[m[32mENDLOCAL[m
+[32m+[m[32mEXIT /b %errorlevel%[m
+[32m+[m[32m:find_dp0[m
+[32m+[m[32mSET dp0=%~dp0[m
+[32m+[m[32mEXIT /b[m
+[1mdiff --git a/node_modules/.bin/node-gyp.ps1 b/node_modules/.bin/node-gyp.ps1[m
+[1mnew file mode 100644[m
+[1mindex 0000000..5367845[m
+[1m--- /dev/null[m
+[1m+++ b/node_modules/.bin/node-gyp.ps1[m
+[36m@@ -0,0 +1,18 @@[m
+[32m+[m[32m#!/usr/bin/env pwsh[m
+[32m+[m[32m$basedir=Split-Path $MyInvocation.MyCommand.Definition -Parent[m
+[32m+[m
+[32m+[m[32m$exe=""[m
+[32m+[m[32mif ($PSVersionTable.PSVersion -lt "6.0" -or $IsWindows) {[m
+[32m+[m[32m  # Fix case when both the Windows and Linux builds of Node[m
+[32m+[m[32m  # are installed in the same directory[m
+[32m+[m[32m  $exe=".exe"[m
+[32m+[m[32m}[m
+[32m+[m[32m$ret=0[m
+[32m+[m[32mif (Test-Path "$basedir/node$exe") {[m
+[32m+[m[32m  & "$basedir/node$exe"  "$basedir/../node-gyp/bin/node-gyp.js" $args[m
+[32m+[m[32m  $ret=$LASTEXITCODE[m
+[32m+[m[32m} else {[m
+[32m+[m[32m  & "node$exe"  "$basedir/../node-gyp/bin/node-gyp.js" $args[m
+[32m+[m[32m  $ret=$LASTEXITCODE[m
+[32m+[m[32m}[m
+[32m+[m[32mexit $ret[m
+[1mdiff --git a/node_modules/.bin/node-pre-gyp b/node_modules/.bin/node-pre-gyp[m
+[1mnew file mode 100644[m
+[1mindex 0000000..6dcf95b[m
+[1m--- /dev/null[m
+[1m+++ b/node_modules/.bin/node-pre-gyp[m
+[36m@@ -0,0 +1,15 @@[m
+[32m+[m[32m#!/bin/sh[m
+[32m+[m[32mbasedir=$(dirname "$(echo "$0" | sed -e 's,\\,/,g')")[m
+[32m+[m
+[32m+[m[32mcase `uname` in[m
+[32m+[m[32m    *CYGWIN*|*MINGW*|*MSYS*) basedir=`cygpath -w "$basedir"`;;[m
+[32m+[m[32mesac[m
+[32m+[m
+[32m+[m[32mif [ -x "$basedir/node" ]; then[m
+[32m+[m[32m  "$basedir/node"  "$basedir/../node-pre-gyp/bin/node-pre-gyp" "$@"[m
+[32m+[m[32m  ret=$?[m
+[32m+[m[32melse[m[41m [m
+[32m+[m[32m  node  "$basedir/../node-pre-gyp/bin/node-pre-gyp" "$@"[m
+[32m+[m[32m  ret=$?[m
+[32m+[m[32mfi[m
+[32m+[m[32mexit $ret[m
+[1mdiff --git a/node_modules/.bin/node-pre-gyp.cmd b/node_modules/.bin/node-pre-gyp.cmd[m
+[1mnew file mode 100644[m
+[1mindex 0000000..3f20817[m
+[1m--- /dev/null[m
+[1m+++ b/node_modules/.bin/node-pre-gyp.cmd[m
+[36m@@ -0,0 +1,17 @@[m
+[32m+[m[32m@ECHO off[m
+[32m+[m[32mSETLOCAL[m
+[32m+[m[32mCALL :find_dp0[m
+[32m+[m
+[32m+[m[32mIF EXIST "%dp0%\node.exe" ([m
+[32m+[m[32m  SET "_prog=%dp0%\node.exe"[m
+[32m+[m[32m) ELSE ([m
+[32m+[m[32m  SET "_prog=node"[m
+[32m+[m[32m  SET PATHEXT=%PATHEXT:;.JS;=;%[m
+[32m+[m[32m)[m
+[32m+[m
+[32m+[m[32m"%_prog%"  "%dp0%\..\node-pre-gyp\bin\node-pre-gyp" %*[m
+[32m+[m[32mENDLOCAL[m
+[32m+[m[32mEXIT /b %errorlevel%[m
+[32m+[m[32m:find_dp0[m
+[32m+[m[32mSET dp0=%~dp0[m
+[32m+[m[32mEXIT /b[m
+[1mdiff --git a/node_modules/.bin/node-pre-gyp.ps1 b/node_modules/.bin/node-pre-gyp.ps1[m
+[1mnew file mode 100644[m
+[1mindex 0000000..684ad47[m
+[1m--- /dev/null[m
+[1m+++ b/node_modules/.bin/node-pre-gyp.ps1[m
+[36m@@ -0,0 +1,18 @@[m
+[32m+[m[32m#!/usr/bin/env pwsh[m
+[32m+[m[32m$basedir=Split-Path $MyInvocation.MyCommand.Definition -Parent[m
+[32m+[m
+[32m+[m[32m$exe=""[m
+[32m+[m[32mif ($PSVersionTable.PSVersion -lt "6.0" -or $IsWindows) {[m
+[32m+[m[32m  # Fix case when both the Windows and Linux builds of Node[m
+[32m+[m[32m  # are installed in the same directory[m
+[32m+[m[32m  $exe=".exe"[m
+[32m+[m[32m}[m
+[32m+[m[32m$ret=0[m
+[32m+[m[32mif (Test-Path "$basedir/node$exe") {[m
+[32m+[m[32m  & "$basedir/node$exe"  "$basedir/../node-pre-gyp/bin/node-pre-gyp" $args[m
+[32m+[m[32m  $ret=$LASTEXITCODE[m
+[32m+[m[32m} else {[m
+[32m+[m[32m  & "node$exe"  "$basedir/../node-pre-gyp/bin/node-pre-gyp" $args[m
+[32m+[m[32m  $ret=$LASTEXITCODE[m
+[32m+[m[32m}[m
+[32m+[m[32mexit $ret[m
+[1mdiff --git a/node_modules/.bin/nodemon b/node_modules/.bin/nodemon[m
+[1mnew file mode 100644[m
+[1mindex 0000000..439386d[m
+[1m--- /dev/null[m
+[1m+++ b/node_modules/.bin/nodemon[m
+[36m@@ -0,0 +1,15 @@[m
+[32m+[m[32m#!/bin/sh[m
+[32m+[m[32mbasedir=$(dirname "$(echo "$0" | sed -e 's,\\,/,g')")[m
+[32m+[m
+[32m+[m[32mcase `uname` in[m
+[32m+[m[32m    *CYGWIN*|*MINGW*|*MSYS*) basedir=`cygpath -w "$basedir"`;;[m
+[32m+[m[32mesac[m
+[32m+[m
+[32m+[m[32mif [ -x "$basedir/node" ]; then[m
+[32m+[m[32m  "$basedir/node"  "$basedir/../nodemon/bin/nodemon.js" "$@"[m
+[32m+[m[32m  ret=$?[m
+[32m+[m[32melse[m[41m [m
+[32m+[m[32m  node  "$basedir/../nodemon/bin/nodemon.js" "$@"[m
+[32m+[m[32m  ret=$?[m
+[32m+[m[32mfi[m
+[32m+[m[32mexit $ret[m
+[1mdiff --git a/node_modules/.bin/nodemon.cmd b/node_modules/.bin/nodemon.cmd[m
+[1mnew file mode 100644[m
+[1mindex 0000000..2ef2888[m
+[1m--- /dev/null[m
+[1m+++ b/node_modules/.bin/nodemon.cmd[m
+[36m@@ -0,0 +1,17 @@[m
+[32m+[m[32m@ECHO off[m
+[32m+[m[32mSETLOCAL[m
+[32m+[m[32mCALL :find_dp0[m
+[32m+[m
+[32m+[m[32mIF EXIST "%dp0%\node.exe" ([m
+[32m+[m[32m  SET "_prog=%dp0%\node.exe"[m
+[32m+[m[32m) ELSE ([m
+[32m+[m[32m  SET "_prog=node"[m
+[32m+[m[32m  SET PATHEXT=%PATHEXT:;.JS;=;%[m
+[32m+[m[32m)[m
+[32m+[m
+[32m+[m[32m"%_prog%"  "%dp0%\..\nodemon\bin\nodemon.js" %*[m
+[32m+[m[32mENDLOCAL[m
+[32m+[m[32mEXIT /b %errorlevel%[m
+[32m+[m[32m:find_dp0[m
+[32m+[m[32mSET dp0=%~dp0[m
+[32m+[m[32mEXIT /b[m
+[1mdiff --git a/node_modules/.bin/nodemon.ps1 b/node_modules/.bin/nodemon.ps1[m
+[1mnew file mode 100644[m
+[1mindex 0000000..413e5cb[m
+[1m--- /dev/null[m
+[1m+++ b/node_modules/.bin/nodemon.ps1[m
+[36m@@ -0,0 +1,18 @@[m
+[32m+[m[32m#!/usr/bin/env pwsh[m
+[32m+[m[32m$basedir=Split-Path $MyInvocation.MyCommand.Definition -Parent[m
+[32m+[m
+[32m+[m[32m$exe=""[m
+[32m+[m[32mif ($PSVersionTable.PSVersion -lt "6.0" -or $IsWindows) {[m
+[32m+[m[32m  # Fix case when both the Windows and Linux builds of Node[m
+[32m+[m[32m  # are installed in the same directory[m
+[32m+[m[32m  $exe=".exe"[m
+[32m+[m[32m}[m
+[32m+[m[32m$ret=0[m
+[32m+[m[32mif (Test-Path "$basedir/node$exe") {[m
+[32m+[m[32m  & "$basedir/node$exe"  "$basedir/../nodemon/bin/nodemon.js" $args[m
+[32m+[m[32m  $ret=$LASTEXITCODE[m
+[32m+[m[32m} else {[m
+[32m+[m[32m  & "node$exe"  "$basedir/../nodemon/bin/nodemon.js" $args[m
+[32m+[m[32m  $ret=$LASTEXITCODE[m
+[32m+[m[32m}[m
+[32m+[m[32mexit $ret[m
+[1mdiff --git a/node_modules/.bin/rimraf b/node_modules/.bin/rimraf[m
+[
